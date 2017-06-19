@@ -1,0 +1,58 @@
+[
+  {
+    "title": "Fettuccine with Creamy Red Pepper Sauce",
+    "imageUrl": "http://food.fnr.sndimg.com/content/dam/images/food/fullset/2011/12/6/0/CC-ellie-krieger_fettuccine-with-creamy-red-pepper-feta-sauce-recipe_s4x3.jpg.rend.hgtvcom.966.725.jpeg",
+    "id": 1,
+    "rating": 1,
+    "ingredients": [
+      "olive oil",
+      "onion",
+      "garlic cloves",
+      "chicken or vegetable stock",
+      "feta cheese",
+      "fettucine",
+      "salt",
+      "black pepper",
+      "parsley"
+    ],
+    "price": 27
+  },
+  {
+    "title": "The Ultimate Cheesecake",
+    "imageUrl": "http://food.fnr.sndimg.com/content/dam/images/food/fullset/2003/11/18/0/tu1a12_ultimate_cheesecake.jpg.rend.hgtvcom.616.462.jpeg",
+    "id": 2,
+    "rating": 2,
+    "ingredients": [
+      "graham crackers",
+      "cinnamon",
+      "unsalted butter",
+      "cream cheese",
+      "eggs",
+      "sugar",
+      "sour cream",
+      "lemon zested",
+      "parsley"
+    ],
+    "price": 27
+  },
+  {
+    "title": "The Ultimate Cheesecake",
+    "imageUrl": "http://food.fnr.sndimg.com/content/dam/images/food/fullset/2003/9/29/0/ig1a11_turkey_meatloaf.jpg.rend.hgtvcom.616.462.jpeg",
+    "id": 3,
+    "rating": 3,
+    "ingredients": [
+      "yellow onion",
+      "olive oil",
+      "kosher salt",
+      "black pepper",
+      "thyme leaves",
+      "chicken stock",
+      "tomato paste",
+      "turkey breast",
+      "bread crumbs",
+      "eggs",
+      "ketchup"
+    ],
+    "price": 27
+  }
+]
