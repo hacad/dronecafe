@@ -1,0 +1,23 @@
+<div class="container">
+  <h1>Kitchen></h1>
+  <div class="row">
+    <div class="col s6">
+      <h3>Ordered dishes</h3>
+      <ul class="collection">
+        <li class="collection-item" data-ng-repeat="order in orderedDishes">
+          <div>{{order.dishName}}</div>
+          <button class="btn right-align waves-effect waves-light" data-ng-click="startCooking(order, $index)">Start cooking</button>
+        </li>
+      </ul>
+    </div>
+    <div class="col s6">
+      <h3>Cooking dishes</h3>
+      <ul class="collection">
+        <li class="collection-item" data-ng-repeat="order in cookingDishes">
+          <div>{{order.dishName}}</div>
+          <button class="btn right-align waves-effect waves-light" data-ng-click="finishCooking(order, $index)">Finish cooking</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

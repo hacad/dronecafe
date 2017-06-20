@@ -1,6 +1,6 @@
 module.exports = function(mongoose) {
   const Dish = require('./models/dish')(mongoose);
-  const dishes = require('./dishes');
+  const dishes = require('./menu');
   
   return function fillDishes() {
     Dish

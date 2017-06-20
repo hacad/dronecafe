@@ -1,14 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const http = require('http');
+const io = require('socket.io');
 
 const mongoose = require('mongoose');
 //global.mongoose = mongoose;
 
 const app = express();
 const server = http.createServer(app);
+const socketIO = io(server);
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(express.static(__dirname + '/../public'));
 
@@ -43,12 +46,29 @@ app.get('/', function(req, res) {
 });
 
 const clientRouter = require('./routes/client.js')(mongoose);
-const dishRouter = require('./routes/dish.js')(mongoose);
-const orderRouter = require('./routes/order.js')(mongoose);
+const kitchenRouter = require('./routes/kitchen.js')(mongoose);
+const orderRouter = require('./routes/order.js')(mongoose, socketIO);
 app.use('/api/clients', clientRouter);
-app.use('/api/dishes', dishRouter);
+app.use('/api/dishes', kitchenRouter);
 app.use('/api/orders', orderRouter);
 
 server.listen(port, function() {
   console.log(`server is started on port: ${port}`);
-})
+});
+
+//todo: move to separate file
+socketIO.on('connection', function(socket) {
+  console.log('new user connected');
+
+  socket.on('server.order.delivered', function(order) {
+    socketIO.emit('server.order.delivered', order);
+  });
+
+  socket.on('server.order.delivered', function(order) {
+    socketIO.emit('server.order.faileddeliver', order);
+  });
+
+  socket.on('disconnect', function(message) {
+    console.log('user left');
+  });
+});

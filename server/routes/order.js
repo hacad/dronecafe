@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const drone = require('netology-fake-drone-api');
 const router = express.Router();
 
-module.exports = function(mongoose) {
+module.exports = function(mongoose, socketIO) {
   const Order = require('../models/order')(mongoose);
 
   router.route('/')
@@ -62,7 +62,8 @@ module.exports = function(mongoose) {
           res.status(500);
           res.send('Error in saving order');
         } else {
-          res.json({'message': 'Order created'});
+          res.json({'message': 'Order created', data: newOrder});
+          socketIO.emit('server.order.created', newOrder);
         }
       });
     });
@@ -84,7 +85,7 @@ module.exports = function(mongoose) {
             } else {
               res.json({'message': 'order updated'});
               if (order.status == 'ordered') {
-                //socket logic
+                socketIO.emit('server.order.created');
               }
 
               if(order.status == 'todeliver') {
@@ -97,7 +98,7 @@ module.exports = function(mongoose) {
                       if(err) {
                         console.log(err);
                       } else {
-                        //socket logic
+                        socketIO.emit('server.order.statuschanged', order);
                       }
                     })
                   })
@@ -108,7 +109,7 @@ module.exports = function(mongoose) {
                       if(err) {
                         console.log(err);
                       } else {
-                        //socket logic
+                        socketIO.emit('server.order.statuschanged', order);
                       }
                     })
                   });
