@@ -1,6 +1,6 @@
 angular
   .module('DroneCafeApp')
-  .factory('KitchenService', function ($http) {
+  .factory('KitchenDashboardService', function ($http) {
     const apiUrl = '/api/orders/';
     return {
       getDishesByStatus: function (dishStatus) {

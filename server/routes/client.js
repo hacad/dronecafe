@@ -47,7 +47,7 @@ module.exports = function(mongoose) {
 
   router.route('/:clientId')
     .put(function(req, res) {
-      Client.findById(req.params.clientId, function(req, client) {
+      Client.findById(req.params.clientId, function(err, client) {
         if(err) {
           console.log(err);
           res.status(500);

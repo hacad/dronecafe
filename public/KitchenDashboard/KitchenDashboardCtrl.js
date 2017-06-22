@@ -1,6 +1,6 @@
 angular
   .module('DroneCafeApp')
-  .controller('KitchenDasboardCtrl', function ($scope, KitchenDashboardService) {
+  .controller('KitchenDashboardCtrl', function ($scope, KitchenDashboardService) {
     $scope.orderedDishes = [];
     $scope.cookingDishes = [];
     const socket = io();

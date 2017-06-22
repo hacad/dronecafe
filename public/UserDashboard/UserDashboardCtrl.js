@@ -2,7 +2,7 @@ angular
   .module('DroneCafeApp')
   .controller('UserDashboardCtrl', function($scope, UserDashboardService) {
     $scope.isUserLogged = false;
-    $scope.dishesDisplayed = false;
+    $scope.isDishesDisplayed = false;
     $scope.dishes = [];
     let socket = io();
 
@@ -17,7 +17,7 @@ angular
       $scope.isUserLogged = true;
       $scope.user = user;
 
-      UserDashboardService.getuserInfo($scope.user).then(function(data) {
+      UserDashboardService.getUserInfo($scope.user).then(function(data) {
         let userData = data.data;
 
         if (!userData || !userData.length) {
@@ -38,25 +38,24 @@ angular
     }
 
     $scope.addCredits = function() {
-      UserDashboardService.updateUserBalance($scope.user.id, $scope.user.balance + 100).then(function(data) {
+      UserDashboardService.updateUserBalance($scope.user._id, $scope.user.balance + 100).then(function(data) {
         $scope.user.balance += 100;
       });
     }
 
     $scope.showDishes = function() {
-      $scope.dishesDisplayed = true;
-
       UserDashboardService.getDishes().then(function(data){
         $scope.dishes = data.data;
+        $scope.isDishesDisplayed = true;
       });
     }
 
-    $scope.orderDish = function(dishId, dishPrice) {
-      const newBalance = $scope.user.balance - dishPrice;
+    $scope.orderDish = function(dish) {
+      const newBalance = $scope.user.balance - dish.dishPrice;
       UserDashboardService.updateUserBalance($scope.user._id, newBalance).then(function(data) {
-        $scope.user.balance = balance;
+        $scope.user.balance = newBalance;
 
-        UserDashboardService.createNewOrder($scope.user._id, dishId).then(function(data){
+        UserDashboardService.createNewOrder($scope.user._id, dish._id, dish.title).then(function(data){
           
         });
       });
@@ -68,6 +67,7 @@ angular
 
     socket.on('server.order.created', function(newOrder) {
       $scope.userOrderedDishes.push(newOrder);
+      $scope.$apply();
     });
 
     socket.on('server.order.statuschanged', function(order) {

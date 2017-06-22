@@ -44,13 +44,14 @@ angular
         return $http.get('/api/dishes');
       },
 
-      createNewOrder: function (userId, dishId) {
+      createNewOrder: function (userId, dishId, dishName) {
         return $http({
           method: 'POST',
           url: ordersApiUrl,
           data: {
-            userId: userId,
-            dishId: dishId
+            userId,
+            dishId,
+            dishName
           }
         });
       },

@@ -54,6 +54,7 @@ module.exports = function(mongoose, socketIO) {
       const newOrder = new Order();
       newOrder.userId = mongoose.Types.ObjectId(req.body.userId);
       newOrder.dishId = mongoose.Types.ObjectId(req.body.dishId);
+      newOrder.dishName = req.body.dishName;
       newOrder.status = 'ordered';
 
       newOrder.save(function(err) {

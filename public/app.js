@@ -1,16 +1,16 @@
-var droneCafeApp = angular.module('DroneCafeApp', ['ng-route', 'ng-resource']);
+var droneCafeApp = angular.module('DroneCafeApp', ['ngRoute', 'ngResource']);
 
 angular
   .module('DroneCafeApp')
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'UserDashboard/userdashboard.html',
+        templateUrl: 'UserDashboard/UserDashboard.html',
         controller: 'UserDashboardCtrl'
       })
       .when('/kitchen', {
-        templateUrl: 'CookDashboard/cookdashboard.html',
-        controller: 'CookDashboardCtrl'
+        templateUrl: 'KitchenDashboard/KitchenDashboard.html',
+        controller: 'KitchenDashboardCtrl'
       })
       .otherwise({
         redirectTo: '/'
