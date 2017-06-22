@@ -14,12 +14,12 @@
     <div class="col s6">
       <h3>Your order(s)</h3>
       <ul class="collection">
-        <li class="collection-item" data-ng-repeat="dish in userOrderedDishes">
+        <li class="collection-item clearfix" data-ng-repeat="dish in userOrderedDishes">
           <div>{{dish.dishName}}</div>
-          <span class="secondary-content">{{dish.status}}</span>
+          <span class="secondary-content" data-ng-class="{'error-status': dish.status == 'faileddeliver'}">{{dish.status}}</span>
         </li>
       </ul>
-      <button class="btn waves-effect waves-light" data-ng-click="showDishes()">Order dish</button>
+      <button class="btn waves-effect waves-light" data-ng-click="showDishes()" data-ng-if="!isDishesDisplayed">View dishes to order</button>
     </div>
   </div>
   <div class="row" data-ng-if="isDishesDisplayed">

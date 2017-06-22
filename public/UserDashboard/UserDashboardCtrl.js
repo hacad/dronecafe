@@ -51,12 +51,12 @@ angular
     }
 
     $scope.orderDish = function(dish) {
-      const newBalance = $scope.user.balance - dish.dishPrice;
+      const newBalance = $scope.user.balance - dish.price;
       UserDashboardService.updateUserBalance($scope.user._id, newBalance).then(function(data) {
         $scope.user.balance = newBalance;
 
         UserDashboardService.createNewOrder($scope.user._id, dish._id, dish.title).then(function(data){
-          
+          $scope.userOrderedDishes.push(data.data.data);
         });
       });
     }
@@ -65,10 +65,10 @@ angular
       return ingredients.join(', ');
     };
 
-    socket.on('server.order.created', function(newOrder) {
-      $scope.userOrderedDishes.push(newOrder);
-      $scope.$apply();
-    });
+    // socket.on('server.order.created', function(newOrder) {
+    //   $scope.userOrderedDishes.push(newOrder);
+    //   $scope.$apply();
+    // });
 
     socket.on('server.order.statuschanged', function(order) {
       let orderToUpdate = $scope.userOrderedDishes.find(function (item) {

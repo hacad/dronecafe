@@ -29,6 +29,10 @@ angular
     }
 
     socket.on('server.order.created', function (newOrder) {
+      // KitchenDashboardService.getDishesByStatus('ordered').then(function (data) {
+      //   $scope.orderedDishes = data.data;
+      // });
       $scope.orderedDishes.push(newOrder);
+      $scope.$apply();
     });
   });
