@@ -15,7 +15,7 @@
       "black pepper",
       "parsley"
     ],
-    "price": 27
+    "price": 42
   },
   {
     "title": "The Ultimate Cheesecake",
@@ -33,7 +33,7 @@
       "lemon zested",
       "parsley"
     ],
-    "price": 27
+    "price": 42
   },
   {
     "title": "The Ultimate Cheesecake",
@@ -53,6 +53,6 @@
       "eggs",
       "ketchup"
     ],
-    "price": 27
+    "price": 42
   }
 ]

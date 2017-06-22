@@ -1,6 +1,6 @@
 <div class="container center" data-ng-if="!isUserLogged">
   <h1 class="header center teal-text text-lighten-2">Welcome to Drone cafe!</h1>
-  <button class="btn-large waves-effect waves-light z-depth-3" data-ng-click="showLoginWindow()">Make an order</button>
+  <button class="btn-large waves-effect waves-light z-depth-3 btn-login" data-ng-click="showLoginWindow()">Make an order</button>
 </div>
 
 <div class="container" data-ng-if="isUserLogged">
@@ -19,7 +19,7 @@
           <span class="secondary-content" data-ng-class="{'error-status': dish.status == 'faileddeliver'}">{{dish.status}}</span>
         </li>
       </ul>
-      <button class="btn waves-effect waves-light" data-ng-click="showDishes()" data-ng-if="!isDishesDisplayed">View dishes to order</button>
+      <button class="btn waves-effect waves-light btn-show-dishes" data-ng-click="showDishes()" data-ng-if="!isDishesDisplayed">View dishes to order</button>
     </div>
   </div>
   <div class="row" data-ng-if="isDishesDisplayed">
@@ -40,7 +40,7 @@
           <p>{{makeIngredientsList(dish.ingredients)}}</p>
         </div>
         <div class="card-action">
-          <button class="btn waves-effect waves-light"
+          <button class="btn waves-effect waves-light btn-order-dish"
             data-ng-if="dish.price <= user.balance"
             data-ng-click="orderDish(dish)">Order dish</button>
           <div data-ng-if="dish.price > user.balance">You need {{dish.price - user.balance}} galactic credits to order dish</div>
@@ -57,13 +57,13 @@
     <form name="loginForm" class="col s12" novalidate>
       <div class="row">
         <div class="input-field col s12">
-          <input id="user_name" type="text" class="validate" data-ng-model="newUser.name" requried>
+          <input id="user_name" type="text" class="validate" data-ng-model="newUser.name" required>
           <label for="user_name">Name</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input id="user_email" type="email" class="validate" data-ng-model="newUser.email" requried>
+          <input id="user_email" type="email" class="validate" data-ng-model="newUser.email" required>
           <label for="user_email">Email</label>
         </div>
       </div>
