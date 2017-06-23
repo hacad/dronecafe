@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "protractor ./test/protractor.conf.js",
+    "start": "node ./server/app.js",
+    "test": "protractor test/e2e/protractor.conf.js",
     "update-webdriver": "webdriver-manager update",
     "preprotractor": "npm run update-webdriver"
   },

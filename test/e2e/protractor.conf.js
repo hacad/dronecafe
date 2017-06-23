@@ -3,7 +3,7 @@ exports.config = {
   allScriptsTimeout: 11000,
 
   specs: [
-    'UserDashboard-spec.js'
+    '*-spec.js'
   ],
 
   capabilities: {

@@ -7,11 +7,14 @@ class UserPageObject {
     element(by.css('.btn-login')).click();
     element(by.css('#user_name')).sendKeys('testclient');
     element(by.css('#user_email')).sendKeys('testclient@test.com');
-    element(by.css('input[type="submit"')).click();
+    return element(by.css('button[type="submit"')).click();
   }
 
   btnShowDishesClick() {
-    element(by.css('.btn-show-dishes')).click();
+    let btn = element(by.css('.btn-show-dishes'));
+    if (btn.isDisplayed()) {
+      btn.click();
+    }
   }
 
   btnOrderDishClick() {
