@@ -17,7 +17,8 @@ app.use(express.static(__dirname + '/../public'));
 
 const port = process.env.PORT || 1337;
 
-const dbUrl = 'mongodb://localhost:27017/dc';
+//const dbUrl = 'mongodb://localhost:27017/dc';
+const dbUrl = 'mongodb://drcafeuser:qwerty@ds129651.mlab.com:29651/drcafe';
 const dbConnectionOptions = {
   server: {
     socketOptions: {
