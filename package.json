@@ -8,7 +8,8 @@
     "test": "karma start test/unit/karma.conf.js",
     "protractor": "protractor test/e2e/protractor.conf.js",
     "update-webdriver": "webdriver-manager update",
-    "preprotractor": "npm run update-webdriver"
+    "preprotractor": "npm run update-webdriver",
+    "postinstall": "bower install"
   },
   "keywords": [],
   "author": "",
