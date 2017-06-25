@@ -17,8 +17,8 @@ app.use(express.static(__dirname + '/../public'));
 
 const port = process.env.PORT || 1337;
 
-//const dbUrl = 'mongodb://localhost:27017/dc';
-const dbUrl = 'mongodb://drcafeuser:qwerty@ds129651.mlab.com:29651/drcafe';
+const dbUrl = process.env.MONGO_URL || 'mongodb://localhost:27017/dc';
+
 const dbConnectionOptions = {
   server: {
     socketOptions: {
@@ -34,7 +34,7 @@ mongoose.connect(dbUrl, dbConnectionOptions, function(err, db) {
   if(err) {
     console.log(`Cannot connect to database\n ${err}`);
   } else {
-    console.log('Connected to database');
+    console.log(`Connected to database: ${dbUrl}`);
   }
 });
 
