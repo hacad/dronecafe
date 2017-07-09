@@ -6,6 +6,12 @@ const router = express.Router();
 module.exports = function(mongoose, socketIO) {
   const Order = require('../models/order')(mongoose);
 
+  /**
+   * Returns order
+   * @param {String} [req.query.userId] - id of user
+   * @param {String} [req.query.status] - status of order
+   * @return {{_id: String, userId: String, dishId: String, status: String, dishName: String}}
+   */
   router.route('/')
     .get(function(req, res) {
       const matchQuery = {
@@ -50,6 +56,12 @@ module.exports = function(mongoose, socketIO) {
         }
       });
     })
+    /**
+     * Creates a new order
+     * @param {String} userId - id of the user the order belongs to
+     * @param {String} dishId - id of th dish
+     * @param {String} dishName - name of the dish
+     */
     .post(function(req, res) {
       const newOrder = new Order();
       newOrder.userId = mongoose.Types.ObjectId(req.body.userId);
@@ -69,6 +81,10 @@ module.exports = function(mongoose, socketIO) {
       });
     });
   
+  /**
+   * Updates order
+   * @param {String} orderId - od of the order to update
+   */
   router.route('/:orderId')
     .put(function(req, res) {
       Order.findById(req.params.orderId, function(err, order) {
@@ -120,6 +136,10 @@ module.exports = function(mongoose, socketIO) {
         }
       });
     })
+    /**
+     * Removes order
+     * @param {String} req.params.orderId - id of the order to delete
+     */
     .delete(function(req, res) {
       Order.remove({
         _id: req.params.orderId

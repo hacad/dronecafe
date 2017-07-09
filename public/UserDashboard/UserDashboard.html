@@ -1,77 +1,79 @@
-<div class="container center" data-ng-if="!isUserLogged">
-  <h1 class="header center teal-text text-lighten-2">Welcome to Drone cafe!</h1>
-  <button class="btn-large waves-effect waves-light z-depth-3 btn-login" data-ng-click="showLoginWindow()">Make an order</button>
-</div>
+<div class="page" data-ng-controller="UserDashboardCtrl as user">
+  <div class="container center" data-ng-if="!user.isUserLogged">
+    <h1 class="header center teal-text text-lighten-2">Welcome to Drone cafe!</h1>
+    <button class="btn-large waves-effect waves-light z-depth-3 btn-login" data-ng-click="user.showLoginWindow()">Make an order</button>
+  </div>
 
-<div class="container" data-ng-if="isUserLogged">
-  <div class="row">
-    <div class="col s6">
-      <h3>Your account</h3>
-      <h5>{{user.name}}</h5>
-      <p>{{user.balance}} galactic credits</p>
-      <button class="btn waves-effect waves-light" data-ng-click="addCredits()">Add credits</button>
+  <div class="container" data-ng-if="user.isUserLogged">
+    <div class="row">
+      <div class="col s6">
+        <h3>Your account</h3>
+        <h5>{{user.user.name}}</h5>
+        <p>{{user.user.balance}} galactic credits</p>
+        <button class="btn waves-effect waves-light" data-ng-click="user.addCredits()">Add credits</button>
+      </div>
+      <div class="col s6">
+        <h3>Your order(s)</h3>
+        <ul class="collection">
+          <li class="collection-item clearfix" data-ng-repeat="dish in user.userOrderedDishes">
+            <div>{{dish.dishName}}</div>
+            <span class="secondary-content" data-ng-class="{'error-status': dish.status == 'faileddeliver'}">{{dish.status}}</span>
+          </li>
+        </ul>
+        <button class="btn waves-effect waves-light btn-show-dishes" data-ng-click="user.showDishes()" data-ng-if="!user.isDishesDisplayed">View dishes to order</button>
+      </div>
     </div>
-    <div class="col s6">
-      <h3>Your order(s)</h3>
-      <ul class="collection">
-        <li class="collection-item clearfix" data-ng-repeat="dish in userOrderedDishes">
-          <div>{{dish.dishName}}</div>
-          <span class="secondary-content" data-ng-class="{'error-status': dish.status == 'faileddeliver'}">{{dish.status}}</span>
-        </li>
-      </ul>
-      <button class="btn waves-effect waves-light btn-show-dishes" data-ng-click="showDishes()" data-ng-if="!isDishesDisplayed">View dishes to order</button>
+    <div class="row" data-ng-if="user.isDishesDisplayed">
+      <h3>Choose dishes to order</h3>
+      <div class="col s4" data-ng-repeat="dish in user.dishes">
+        <div class="card small hoverable">
+          <div class="card-image">
+            <img data-ng-src="{{dish.imageUrl}}" alt="{{dish.title}}">
+            <span class="card-title">{{dish.title}}</span>
+          </div>
+          <div class="card-content">
+            <span class="activator grey-text text-darken-4" title="Show ingredients"><i class="material-icons right">more_vert</i></span>
+            <p><strong>Rating:</strong>{{dish.rating}}</p>
+            <p><strong>Price:</strong>{{dish.price}} galactic credits</p>
+          </div>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">Ingredients:<i class="material-icons right">close</i></span>
+            <p>{{user.makeIngredientsList(dish.ingredients)}}</p>
+          </div>
+          <div class="card-action">
+            <button class="btn waves-effect waves-light btn-order-dish"
+              data-ng-if="dish.price <= user.user.balance"
+              data-ng-click="user.orderDish(dish)">Order dish</button>
+            <div data-ng-if="dish.price > user.user.balance">You need {{dish.price - user.user.balance}} galactic credits to order dish</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="row" data-ng-if="isDishesDisplayed">
-    <h3>Choose dishes to order</h3>
-    <div class="col s4" data-ng-repeat="dish in dishes">
-      <div class="card small hoverable">
-        <div class="card-image">
-          <img data-ng-src="{{dish.imageUrl}}" alt="{{dish.title}}">
-          <span class="card-title">{{dish.title}}</span>
-        </div>
-        <div class="card-content">
-          <span class="activator grey-text text-darken-4" title="Show ingredients"><i class="material-icons right">more_vert</i></span>
-          <p><strong>Rating:</strong>{{dish.rating}}</p>
-          <p><strong>Price:</strong>{{dish.price}} galactic credits</p>
-        </div>
-        <div class="card-reveal">
-          <span class="card-title grey-text text-darken-4">Ingredients:<i class="material-icons right">close</i></span>
-          <p>{{makeIngredientsList(dish.ingredients)}}</p>
-        </div>
-        <div class="card-action">
-          <button class="btn waves-effect waves-light btn-order-dish"
-            data-ng-if="dish.price <= user.balance"
-            data-ng-click="orderDish(dish)">Order dish</button>
-          <div data-ng-if="dish.price > user.balance">You need {{dish.price - user.balance}} galactic credits to order dish</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div id="loginPopup" class="modal login-popup">
-  <div class="modal-content">
-    <i class="material-icons right modal close" title="Close">close</i>
-    <h4>Login</h4>
-    <form name="loginForm" class="col s12" novalidate>
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="user_name" type="text" class="validate" data-ng-model="newUser.name" required>
-          <label for="user_name">Name</label>
+  <div id="loginPopup" class="modal login-popup">
+    <div class="modal-content">
+      <i class="material-icons right modal close" title="Close">close</i>
+      <h4>Login</h4>
+      <form name="loginForm" class="col s12" novalidate>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="user_name" type="text" class="validate" data-ng-model="newUser.name" required>
+            <label for="user_name">Name</label>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="user_email" type="email" class="validate" data-ng-model="newUser.email" required>
-          <label for="user_email">Email</label>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="user_email" type="email" class="validate" data-ng-model="newUser.email" required>
+            <label for="user_email">Email</label>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <button type="submit" class="btn waves-effect waves-light right" data-ng-click="login(newUser)" data-ng-disabled="loginForm.$invalid">Login</button>
+        <div class="row">
+          <div class="input-field col s12">
+            <button type="submit" class="btn waves-effect waves-light right" data-ng-click="user.login(newUser)" data-ng-disabled="loginForm.$invalid">Login</button>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </div>

@@ -45,10 +45,9 @@ app.get('/', function(req, res) {
   //res.status(200).json({'message': 'drone cafe'});
   res.sendFile('index.html')
 });
-
-const clientRouter = require('./routes/client.js')(mongoose);
-const kitchenRouter = require('./routes/kitchen.js')(mongoose);
-const orderRouter = require('./routes/order.js')(mongoose, socketIO);
+const clientRouter = require('./User/routes/client.js')(mongoose);
+const orderRouter = require('./User/routes/order.js')(mongoose, socketIO);
+const kitchenRouter = require('./Kitchen/routes/kitchen.js')(mongoose);
 app.use('/api/clients', clientRouter);
 app.use('/api/dishes', kitchenRouter);
 app.use('/api/orders', orderRouter);

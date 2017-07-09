@@ -2,9 +2,18 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const router = express.Router();
 
+  /**
+   * Return clients
+   * @param no params
+   */
 module.exports = function(mongoose) {
   const Client = require('../models/client')(mongoose);
 
+  /**
+   * Returns all users
+   * @param req.query.name - if set filter users by name
+   * @param req.query.email - if set filter users by email
+   */
   router.route('/')
     .get(function(req, res) {
       const searchQuery = {};
@@ -27,6 +36,12 @@ module.exports = function(mongoose) {
         }
       });
     })
+    /**
+     * Creates a new client
+     * @param req.body.name - name of the user
+     * @param req.body.email - email of the user
+     * @param req.body.bslsnce - balance of the user
+     */
     .post(function(req, res) {
       const newClient = new Client();
       newClient.name = req.body.name;
@@ -45,6 +60,10 @@ module.exports = function(mongoose) {
       });
     });
 
+  /**
+   * Searches user by Id
+   * @param {String} clientId - id of the user to search
+   */
   router.route('/:clientId')
     .put(function(req, res) {
       Client.findById(req.params.clientId, function(err, client) {
@@ -66,6 +85,10 @@ module.exports = function(mongoose) {
         }
       });
     })
+    /**
+     * Deletes user
+     * @param req.params.id - id of the user to delete
+     */
     .delete(function(req, res) {
       Client.remove({
         _id: req.params.clientId

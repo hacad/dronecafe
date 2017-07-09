@@ -4,29 +4,29 @@ class UserPageObject {
   }
 
   login() {
-    element(by.css('.btn-login')).click();
-    element(by.css('#user_name')).sendKeys('testclient');
-    element(by.css('#user_email')).sendKeys('testclient@test.com');
-    return element(by.css('button[type="submit"')).click();
+    element(by.css('.page .btn-login')).click();
+    element(by.css('.page #user_name')).sendKeys('testclient');
+    element(by.css('.page #user_email')).sendKeys('testclient@test.com');
+    return element(by.css('.page button[type="submit"')).click();
   }
 
   btnShowDishesClick() {
-    let btn = element(by.css('.btn-show-dishes'));
+    let btn = element(by.css('.page .btn-show-dishes'));
     if (btn.isDisplayed()) {
       btn.click();
     }
   }
 
   btnOrderDishClick() {
-    element(by.css('.btn-order-dish:first-child')).click();
+    element(by.css('.page .btn-order-dish:first-child')).click();
   }
 
   getUserOrderedDishesCount() {
-    return element.all(by.repeater('dish in userOrderedDishes')).count();
+    return element.all(by.repeater('dish in user.userOrderedDishes')).count();
   }
 
   getDishesToOrderCount() {
-    return element.all(by.repeater('dish in dishes')).count();
+    return element.all(by.repeater('dish in user.dishes')).count();
   }
 }
 
